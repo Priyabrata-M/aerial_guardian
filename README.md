@@ -160,15 +160,6 @@ Output video: aerial_guardian/output/tracked_video_motion_comp.mp4
 For sequences with camera motion below 1-2 pixels/frame, motion compensation overhead is not justified. Our baseline ByteTrack tracker achieved excellent results (55.00% MOTA, 70.87% IDF1, only 4 ID switches across 58 frames) without motion compensation. Camera motion compensation should be reserved for sequences with significant ego-motion (>5 pixels/frame), such as aggressive drone maneuvering or tracking scenarios.
 
 
-# Install DeepSORT dependencies
-!pip install filterpy scikit-image
-!pip install gdown
-
-# Clone DeepSORT repository
-!git clone https://github.com/nwojke/deep_sort.git
-%cd deep_sort
-
-
 Additionally I have tested the sequence for DeepSort with appearance-based re-identification features but there is no major improvement in result but the FPS was very low compared to ByteSort and as per my understanding due to small object size deep sort appearance features are not much useful here. 
 
 
