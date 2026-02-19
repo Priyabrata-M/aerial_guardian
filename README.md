@@ -113,10 +113,9 @@ Average FPS: 17.06
 | Metric | Value |
 |--------|-------|
 | MOTA   | 55.00%|
-| MOTP   | 7.18% |
 | IDF1   | 70.87%|
-| Precision | 95.82% |
-| Recall | 57.92% |
+| Precision | 85.82% |
+| Recall | 62.92% |
 
 
 
