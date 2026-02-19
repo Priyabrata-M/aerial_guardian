@@ -72,16 +72,16 @@ I have tried to do tracking with ByteTrack, ByteTrack with optical flow for moti
 pip install cython cython-bbox
 pip install lap  # This often fails if build-essential is missing
 
-# Clone the repository
+Clone the repository
 git clone https://github.com/ifzhang/ByteTrack.git
 
-# Move into the directory
+Move into the directory
 cd ByteTrack
 
-# Install the specific requirements for ByteTrack
+Install the specific requirements for ByteTrack
 pip install -r requirements.txt
 
-# Build the project (This compiles the C++ extensions)
+Build the project (This compiles the C++ extensions)
 python setup.py develop
 
 
