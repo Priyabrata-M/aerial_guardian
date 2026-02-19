@@ -1,14 +1,49 @@
 # aerial_guardian
 
-Assumption: For this assignment I have considered pedestrian (1), people (2), bicyclist (3), motobike rider(10) all into human class.
+**Target Classes:** All humans (pedestrians, people groups, cyclists, motorcyclists) unified as "person" class
 
 
-All the dependancies are added to requirement.txt and we can install the dependancies with pip install -r requirements.txt 
+
+# Requirements (For Inference)
+- Python 3.8+
+- CUDA-capable GPU with 4GB+ VRAM (recommended) OR CPU
+- 4GB+ RAM
+
+
+### For Training (Fine-tuning model)
+- Python 3.8+
+- CUDA-capable GPU with 8GB+ VRAM (12GB recommended for batch_size=8)
+- 16GB+ RAM
+
+### Setup
+```bash
+# Clone repository
+git clone https://github.com/Priyabrata-M/aerial_guardian.git
+cd aerial_guardian
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install ByteTrack
+
+Clone the repository
+git clone https://github.com/ifzhang/ByteTrack.git
+
+Move into the directory
+cd ByteTrack
+
+Install the specific requirements for ByteTrack
+pip install -r requirements.txt
+
+Build the project (This compiles the C++ extensions)
+python setup.py develop
+
+```
 
 
 # Detection
 
-For detection I have used yolo11 and to deal with small objects while detection:
+For detection I have used yolo11s and to deal with small objects while detection:
 
 1. High Resolution (imgsz=1280)
 I have doubled the input resolution to 1280, this preserve the pixel density of tiny objects, preventing them from being "downsampled" into unrecognizable blobs.
@@ -34,7 +69,7 @@ Total sequences: 6
 
 
 
-Human Bounding Box Sizes (area in pixels):
+Human Bounding Box Sizes (area in sq.pixels):
 | Metric  | Value |
 |---------|-------|
 | Min     | 96    |
@@ -65,28 +100,9 @@ Model checkpoints: /aerial_guardian/check_points/weights/best.pt
 
 # Tracking:
 
-I have tried to do tracking with ByteTrack, ByteTrack with optical flow for motion compensation and DeepSORT.
 
-
-# Install ByteTrack
-pip install cython cython-bbox
-pip install lap  # This often fails if build-essential is missing
-
-Clone the repository
-git clone https://github.com/ifzhang/ByteTrack.git
-
-Move into the directory
-cd ByteTrack
-
-Install the specific requirements for ByteTrack
-pip install -r requirements.txt
-
-Build the project (This compiles the C++ extensions)
-python setup.py develop
-
-
-
-
+command to process all frames for tracking with ByteTrack:
+python tracker.py --sequence /path/to/frames/ --output /path/to/output.mp4
 
 With ByteTrack:
 Output video: aerial_guardian/output/tracked_video_final.mp4
@@ -129,11 +145,6 @@ Average camera motion: 0.23 pixels
 | IDF1   | 70.87% |
 | Precision | 95.82% |
 | Recall | 57.92% |
-
-### Tracking Stability
-
-| Metric | Value |
-|--------|-------|
 | ID Switches | 4 |
 | Fragmentations | 7 |
 
@@ -163,13 +174,19 @@ Additionally I have tested the sequence for DeepSort with appearance-based re-id
 
 # edge deployment
 
-The model is already light weight i.e. 25MB compared to our budget of 500MB but still if we need ligher then we can go for prunning and quantization.
+The model is already light weight i.e. 25MB compared to our budget of 500MB but still if we need lighter then we can go for prunning and quantization.
 we can use export_model.py to convert pt file into onnx.
 python scripts/export_model.py --model checkpoints/weights/best.pt 
 I have also added onnx file the checkpoint folder. 
 
 Convert to TensorRT (on Jetson):
 trtexec --onnx=best.onnx --saveEngine=best.trt --fp16
+
+
+# Reference:
+
+1. https://github.com/FoundationVision/ByteTrack
+2. https://github.com/nwojke/deep_sort
   
 
 

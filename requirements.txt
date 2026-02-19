@@ -6,3 +6,5 @@ lap
 cython_bbox
 loguru
 deep-sort-realtime
+cython
+lap
