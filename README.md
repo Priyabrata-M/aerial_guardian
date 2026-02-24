@@ -88,7 +88,7 @@ Evaluation metircs for detection:
 | Metric          | Value   |
 |-----------------|---------|
 | mAP@0.5         | 0.8388  |
-| mAP@0.5–0.95    | 0.4371  |
+| mAP@0.5–0.95    | 0.4732  |
 | Precision       | 0.8056  |
 | Recall          | 0.8123  |
 | Average FPS     | 36.75   |
